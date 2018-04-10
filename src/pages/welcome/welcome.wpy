@@ -1,0 +1,47 @@
+<template>
+  <view class="container">
+    <view class="btnBox">
+      <view class="rsButton" hover-class="rsButton_hover" @tap="goIndexFn">立即体验</view>
+    </view>
+
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import { connect } from 'wepy-redux';
+
+export default class Index extends wepy.page {
+  config = {};
+
+  data = {};
+
+  onLoad() {}
+
+  computed = {};
+
+  methods = {
+    goIndexFn () {
+
+      wx.redirectTo({
+        url: '../home/index/index'
+      })
+    }
+  };
+}
+</script>
+<style lang="less">
+.container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .btnBox {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+</style>

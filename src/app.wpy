@@ -1,0 +1,125 @@
+<style lang="less">
+.container {
+  width: 100%;
+  font-size: 24rpx;
+  color: #333333;
+}
+.rsButton {
+  width: 231rpx;
+  height: 83rpx;
+  font-size: 32rpx;
+  color: #fff;
+  background: #f6c443;
+  text-align: center;
+  line-height: 83rpx;
+}
+.rsButton_hover {
+  opacity: 0.7;
+}
+</style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+
+import { setStore } from 'wepy-redux';
+import configStore from './store';
+
+const store = configStore();
+setStore(store);
+
+export default class extends wepy.app {
+  constructor() {
+    super();
+    this.use('requestfix');
+  }
+  config = {
+    pages: [
+      'pages/welcome/welcome',
+      'pages/home/index/index'
+      ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#2C2D31',
+      navigationBarTextStyle: 'white',
+      navigationBarTitleText: '点评课'
+    }
+  };
+
+  globalData = {
+    userInfo: null
+  };
+
+  onLaunch() {
+    this.loginFn();
+  }
+
+  loginFn() {
+    this.wxLogin(this)
+      .then(this.wxUserInfo)
+      .then(r => {
+        // 授权成功回调
+        this.globalData.userInfo = r;
+        console.log('=>', r);
+      })
+      .catch(that => {
+        this.wxOpenSetting(that)
+          .then(this.wxLogin)
+          .then(this.wxUserInfo)
+          .then(r => {
+            // 授权成功回调
+            this.globalData.userInfo = r;
+            console.log('==>', r);
+          })
+          .catch(this.wxShowModal);
+      });
+  }
+
+  wxLogin(that) {
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success(result) {
+          resolve(that);
+        }
+      });
+    });
+  }
+
+  wxUserInfo(that) {
+    return new Promise((resolve, reject) => {
+      wx.getUserInfo({
+        withCredentials: true,
+        success: res => {
+          resolve(res);
+        },
+        fail: res => {
+          reject(that);
+        }
+      });
+    });
+  }
+
+  wxOpenSetting(that) {
+    return new Promise((resolve, reject) => {
+      wx.openSetting({
+        success: res => {
+          resolve(that);
+        }
+      });
+    });
+  }
+
+  wxShowModal(that) {
+    wx.showModal({
+      title: '警告',
+      content: '您点击了拒绝授权，将无法正常使用小程序。请点击确定完成授权。',
+      showCancel: false,
+      success: function(res) {
+        if (res.confirm) {
+          that.loginFn();
+        }
+      }
+    });
+  }
+}
+</script>

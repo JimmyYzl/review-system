@@ -1,0 +1,49 @@
+<template>
+  <view class="container">
+		<swiper indicator-dots="true" autoplay="true">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="355" height="150"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import { connect } from 'wepy-redux';
+
+export default class Index extends wepy.page {
+  config = {};
+
+  data = {
+    imgUrls: [
+      'https://gd3.alicdn.com/imgextra/i3/310580264/TB2abxSXr8kpuFjy0FcXXaUhpXa_!!310580264.jpg',
+      'https://s3.cn-north-1.amazonaws.com.cn/standard/store_item/a077e4e1-32a8-38ee-ad28-7e725fa26c67_ori.jpg',
+      'https://s3.cn-north-1.amazonaws.com.cn/standard/store_item/89363c6b-de08-3c71-9efa-5d0906ad55b0_ori.jpg'
+    ],
+    indicatorDots: true,
+    autoplay: false,
+    interval: 5000,
+    duration: 1000
+  }
+  
+
+  onLoad() {}
+
+  computed = {};
+  methods = {}
+};
+
+</script>
+<style lang="less">
+.container {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+</style>
