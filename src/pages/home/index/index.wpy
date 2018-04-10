@@ -21,7 +21,8 @@ export default class Index extends wepy.page {
     imgUrls: [
       'https://gd3.alicdn.com/imgextra/i3/310580264/TB2abxSXr8kpuFjy0FcXXaUhpXa_!!310580264.jpg',
       'https://s3.cn-north-1.amazonaws.com.cn/standard/store_item/a077e4e1-32a8-38ee-ad28-7e725fa26c67_ori.jpg',
-      'https://s3.cn-north-1.amazonaws.com.cn/standard/store_item/89363c6b-de08-3c71-9efa-5d0906ad55b0_ori.jpg'
+      'https://s3.cn-north-1.amazonaws.com.cn/standard/store_item/89363c6b-de08-3c71-9efa-5d0906ad55b0_ori.jpg',
+      'https://s3.cn-north-1.amazonaws.com.cn/standard/store_item/afa6a174-2d71-3234-ad11-62759af76d75_ori.jpg'
     ],
     indicatorDots: true,
     autoplay: false,
